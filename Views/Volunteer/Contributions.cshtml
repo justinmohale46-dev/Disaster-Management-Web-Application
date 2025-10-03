@@ -1,0 +1,127 @@
+﻿@model GiftOfTheGivers.ViewModels.VolunteerContributionsViewModel
+
+@{
+    ViewData["Title"] = "My Contributions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>📊 My Contributions</h2>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body text-center">
+                    <h3>@Model.TotalHours</h3>
+                    <p>Total Hours</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h3>@Model.TotalTasks</h3>
+                    <p>Tasks Completed</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h3>@Model.HoursThisMonth</h3>
+                    <p>Hours This Month</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body text-center">
+                    <h3>@Model.MemberSince.ToString("MMM yyyy")</h3>
+                    <p>Member Since</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Stats -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>📈 This Year</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="text-success">@Model.HoursThisYear hours</h3>
+                    <p class="text-muted">Total volunteer hours this year</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>🏆 Most Active In</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="text-primary">@(Model.MostActiveCategory ?? "No data")</h3>
+                    <p class="text-muted">Your most frequent task category</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task History -->
+    <div class="card">
+        <div class="card-header">
+            <h5>📋 Task History</h5>
+        </div>
+        <div class="card-body">
+            @if (!Model.Contributions.Any())
+            {
+                <div class="text-center text-muted py-4">
+                    <h4>No completed tasks yet</h4>
+                    <p>Start by applying for tasks in the Volunteer Hub!</p>
+                    <a href="@Url.Action("Hub")" class="btn btn-success">Go to Volunteer Hub</a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var contribution in Model.Contributions)
+                            {
+                                <tr>
+                                    <td>@contribution.TaskTitle</td>
+                                    <td>
+                                        <span class="badge badge-info">@contribution.Category</span>
+                                    </td>
+                                    <td>@contribution.TaskDate.ToString("MMM dd, yyyy")</td>
+                                    <td>
+                                        <span class="badge badge-success">@contribution.Hours hours</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Completed</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="@Url.Action("Hub")" class="btn btn-primary">← Back to Volunteer Hub</a>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model GiftOfTheGivers.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // This uses your existing layout
+}
+
+<div class="container mt-4">
+    <h2>My Profile</h2>
+
+    <!-- Success Message -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <!-- Validation Summary -->
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="Profile" method="post">
+        <input type="hidden" asp-for="UserID" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Basic Information</h4>
+
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Change Password</h4>
+                <p class="text-muted">Leave blank to keep current password</p>
+
+                <div class="form-group">
+                    <label asp-for="CurrentPassword"></label>
+                    <input asp-for="CurrentPassword" type="password" class="form-control"
+                           placeholder="Enter current password to make changes" />
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NewPassword"></label>
+                    <input asp-for="NewPassword" type="password" class="form-control"
+                           placeholder="New password" />
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                    <small class="form-text text-muted">
+                        Password must be at least 6 characters with uppercase, lowercase, number, and special character.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control"
+                           placeholder="Confirm new password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+             
+            </div>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

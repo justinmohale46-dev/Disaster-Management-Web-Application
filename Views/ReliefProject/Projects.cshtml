@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GiftOfTheGivers.Models.ReliefProject>
+@{
+    ViewData["Title"] = "Available Projects";
+    <link rel="stylesheet" href="~/css/styles.css" />
+}
+
+<h2>Available Projects</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.ProjectName</td>
+                <td>@project.Description</td>
+                <td>@project.StartDate.ToString("d")</td>
+                <td>@project.Status</td>
+                <td>
+                    <form asp-action="Volunteer" asp-controller="ReliefProject" method="post">
+                        <input type="hidden" name="projectId" value="@project.ProjectID" />
+                        <button type="submit" class="btn btn-primary">Volunteer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table>

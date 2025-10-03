@@ -1,0 +1,75 @@
+﻿@model List<VolunteerTask>
+
+@{
+    ViewData["Title"] = "Manage Volunteer Tasks";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>✅ Manage Volunteer Tasks</h1>
+        <div>
+            <a href="/Admin/CreateTask" class="btn btn-success mr-2">Create New Task</a>
+            <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No volunteer tasks created yet.</p>
+            }
+            else
+            {
+                foreach (var task in Model)
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>@task.Title</h6>
+                                <p class="mb-1">@task.Description</p>
+                                <div class="small text-muted">
+                                    <span>📍 @task.Location</span> •
+                                    <span>📅 @task.TaskDate.ToString("MMM dd, yyyy HH:mm")</span> •
+                                    <span>⏱️ @task.DurationHours hours</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge badge-primary">@task.Category</span>
+                                    <span class="badge badge-@GetStatusBadge(task.Status)">@task.Status</span>
+                                    <span class="badge badge-info">👥 @task.VolunteersAssigned/@task.VolunteersNeeded volunteers</span>
+                                </div>
+                                <!-- Show disaster report info if linked -->
+                                @if (task.DisasterReport != null)
+                                {
+                                    <div class="mt-2">
+                                        <small class="text-warning">
+                                            🚨 Linked to: @task.DisasterReport.DisasterType in @task.DisasterReport.Location
+                                        </small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <a href="/Admin/Applications?taskId=@task.TaskID" class="btn btn-info btn-sm">View Applications</a>
+                                <span class="d-block mt-1 small text-muted">Created: @task.CreatedDate.ToString("MMM dd")</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Open" => "success",
+            "Filled" => "info",
+            "Completed" => "secondary",
+            "Cancelled" => "danger",
+            _ => "secondary"
+        };
+    }
+}

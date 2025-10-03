@@ -1,0 +1,94 @@
+﻿@model GiftOfTheGivers.ViewModels.DisasterReportViewModel
+
+@{
+    ViewData["Title"] = "Report Disaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2>🚨 Report a Disaster</h2>
+            <p class="text-muted">Help us respond quickly by providing accurate information about the disaster.</p>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Location">Location *</label>
+                            <input asp-for="Location" class="form-control" placeholder="e.g., Durban, KZN" required />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="DisasterType">Disaster Type *</label>
+                            <select asp-for="DisasterType" class="form-control" required>
+                                <option value="">-- Select Disaster Type --</option>
+                                @foreach (var type in Model.DisasterTypes)
+                                {
+                                    <option value="@type">@type</option>
+                                }
+                            </select>
+                            <span asp-validation-for="DisasterType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeverityLevel">Severity Level *</label>
+                            <select asp-for="SeverityLevel" class="form-control" required>
+                                <option value="">-- Select Severity --</option>
+                                @foreach (var severity in Model.SeverityLevels)
+                                {
+                                    <option value="@severity">@severity</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SeverityLevel" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PeopleAffected">People Affected *</label>
+                            <input asp-for="PeopleAffected" class="form-control" type="number" min="1" required />
+                            <span asp-validation-for="PeopleAffected" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="IncidentDate">Incident Date/Time</label>
+                            <input asp-for="IncidentDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="IncidentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImageFile">Upload Photo (Optional)</label>
+                            <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            <small class="form-text text-muted">Upload images of the disaster situation (max 5MB)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description">Description *</label>
+                    <textarea asp-for="Description" class="form-control" rows="5"
+                              placeholder="Describe what happened, the impact, urgent needs, and any other relevant details..." required></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        🚨 Submit Disaster Report
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,69 @@
+﻿@model List<TaskApplication>
+
+@{
+    ViewData["Title"] = "Manage Applications";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>📝 Volunteer Applications</h1>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Pending Applications</h5>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No pending applications. Great work! 🎉</p>
+            }
+            else
+            {
+                foreach (var application in Model)
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h6>@application.Volunteer.User.FirstName @application.Volunteer.User.LastName</h6>
+                                <p class="mb-1">
+                                    <strong>Applied for:</strong> @application.VolunteerTask.Title
+                                </p>
+                                <div class="small text-muted">
+                                    <span>📧 @application.Volunteer.User.Email</span> •
+                                    <span>📅 Applied: @application.AppliedDate.ToString("MMM dd, yyyy HH:mm")</span> •
+                                    <span>🛠️ Skills: @application.Volunteer.Skills</span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(application.ApplicationNotes))
+                                {
+                                    <div class="mt-2">
+                                        <strong>Volunteer Notes:</strong>
+                                        <p class="mb-1"><em>"@application.ApplicationNotes"</em></p>
+                                    </div>
+                                }
+                                <div class="mt-2">
+                                    <span class="badge badge-warning">@application.Status</span>
+                                    <span class="badge badge-primary ml-1">@application.VolunteerTask.Category</span>
+                                    <span class="badge badge-info ml-1">📍 @application.VolunteerTask.Location</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <form asp-action="ApproveApplication" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="applicationId" value="@application.ApplicationID" />
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        ✅ Approve
+                                    </button>
+                                </form>
+                                <div class="mt-2 small text-muted">
+                                    Task: @application.VolunteerTask.VolunteersAssigned/@application.VolunteerTask.VolunteersNeeded volunteers
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

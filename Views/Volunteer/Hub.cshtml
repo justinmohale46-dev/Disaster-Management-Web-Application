@@ -1,0 +1,197 @@
+﻿@model GiftOfTheGivers.ViewModels.VolunteerHubViewModel
+
+@{
+    ViewData["Title"] = "Volunteer Hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <!-- Success Message -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row">
+        <!-- Left Side - Quick Stats -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5>📊 My Stats</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <h3 class="text-success">@Model.TotalHours</h3>
+                        <small class="text-muted">Total Hours</small>
+                    </div>
+                    <div class="text-center mb-3">
+                        <h3 class="text-primary">@Model.TasksCompleted</h3>
+                        <small class="text-muted">Tasks Completed</small>
+                    </div>
+                    <div class="text-center mb-3">
+                        <h3 class="text-warning">@Model.UpcomingShifts</h3>
+                        <small class="text-muted">Upcoming Shifts</small>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-info">@Model.PendingApplications</h3>
+                        <small class="text-muted">Pending Applications</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>🚀 Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <a href="@Url.Action("Contributions")" class="btn btn-outline-primary btn-block mb-2">
+                        📊 View My Contributions
+                    </a>
+                    <a href="#available-tasks" class="btn btn-outline-success btn-block">
+                        📋 Browse Tasks
+                    </a>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body text-center">
+                    <a href="/Messages" class="btn btn-outline-info btn-block">
+                        💬 Messages & Announcements
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center - Available Tasks -->
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>🎯 Available Tasks</h5>
+                    <span class="badge badge-primary">@Model.AvailableTasks.Count available</span>
+                </div>
+                <div class="card-body">
+                    @if (!Model.AvailableTasks.Any())
+                    {
+                        <div class="text-center text-muted">
+                            <p>No available tasks at the moment.</p>
+                            <p>Check back later for new opportunities!</p>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var task in Model.AvailableTasks)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>@task.Title</h6>
+                                    <p class="text-muted small">@task.Description</p>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <small><strong>📅 Date:</strong> @task.TaskDate.ToString("MMM dd, yyyy")</small><br>
+                                            <small><strong>⏱️ Duration:</strong> @task.DurationHours hours</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><strong>📍 Location:</strong> @task.Location</small><br>
+                                            <small><strong>👥 Volunteers:</strong> @task.VolunteersAssigned/@task.VolunteersNeeded</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <small><strong>Skills needed:</strong> @task.RequiredSkills</small>
+                                    </div>
+
+                                    <button type="button" class="btn btn-success btn-sm mt-2"
+                                            data-toggle="modal" data-target="#applyModal"
+                                            data-taskid="@task.TaskID" data-tasktitle="@task.Title">
+                                        Apply for Task
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - My Schedule -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>📅 My Schedule</h5>
+                    <span class="badge badge-info">@Model.MySchedule.Count upcoming</span>
+                </div>
+                <div class="card-body">
+                    @if (!Model.MySchedule.Any())
+                    {
+                        <div class="text-center text-muted">
+                            <p>No upcoming shifts scheduled.</p>
+                            <p>Apply for tasks to get started!</p>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var shift in Model.MySchedule)
+                        {
+                            <div class="card mb-2">
+                                <div class="card-body p-3">
+                                    <h6 class="mb-1">@shift.Title</h6>
+                                    <small class="text-muted">@shift.TaskDate.ToString("MMM dd, yyyy hh:mm tt")</small><br>
+                                    <small><strong>📍</strong> @shift.Location</small><br>
+                                    <span class="badge badge-success">Approved</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal fade" id="applyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Apply for Task</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <form asp-action="Apply" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="applyTaskId" name="taskId" />
+                    <p>You're applying for: <strong id="applyTaskTitle"></strong></p>
+
+                    <div class="form-group">
+                        <label for="applicationNotes">Notes (optional):</label>
+                        <textarea class="form-control" id="applicationNotes" name="applicationNotes"
+                                  rows="3" placeholder="Any relevant experience or comments..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#applyModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var taskId = button.data('taskid');
+            var taskTitle = button.data('tasktitle');
+
+            var modal = $(this);
+            modal.find('#applyTaskId').val(taskId);
+            modal.find('#applyTaskTitle').text(taskTitle);
+        });
+    </script>
+}

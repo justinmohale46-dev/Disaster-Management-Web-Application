@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" />
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Admin Dashboard</h1>
+        <div>
+            <span class="badge badge-primary">@ViewBag.AdminRole</span>
+            <span class="text-muted ml-2">Welcome, @ViewBag.AdminName!</span>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h3>@ViewBag.Stats.TotalVolunteers</h3>
+                    <p>Total Volunteers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.Stats.TotalDonations</h4>
+                    <p>Total Donations</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.Stats.PendingDonations</h4>
+                    <p>Pending Donations</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h3>@ViewBag.Stats.ActiveTasks</h3>
+                    <p>Active Tasks</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h3>@ViewBag.Stats.PendingApplications</h3>
+                    <p>Pending Applications</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h3>@ViewBag.Stats.TotalDisasterReports</h3>
+                    <p>Disaster Reports</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 mb-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body text-center">
+                    <h3>@ViewBag.Stats.NewDisasterReports</h3>
+                    <p>New Reports</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🚀 Admin Control Panel</h5>
+                    <p class="card-text">Manage all aspects of the volunteer and disaster response system.</p>
+
+                    <div class="mt-4">
+                        <h6>Quick Actions:</h6>
+                        <a href="@Url.Action("Volunteers", "Admin")" class="btn btn-outline-primary mr-2">
+                            👥 Manage Volunteers (@ViewBag.Stats.TotalVolunteers)
+                        </a>
+                        <a href="@Url.Action("CreateTask", "Admin")" class="btn btn-outline-success mr-2">
+                            📋 Create Tasks
+                        </a>
+                        <a href="@Url.Action("Reports", "Admin")" class="btn btn-outline-info mr-2">
+                            🚨 View Reports
+                        </a>
+                        <a href="@Url.Action("Applications", "Admin")" class="btn btn-outline-warning mr-2">
+                            📝 Applications (@ViewBag.Stats.PendingApplications)
+                        </a>
+                        <a href="@Url.Action("Tasks", "Admin")" class="btn btn-outline-secondary mr-2">
+                            ✅ Manage Tasks
+                        </a>
+                        <a href="/Admin/Donations" class="btn btn-outline-success mr-2">
+                            📦 Manage Donations
+                        </a>
+                        <a href="/Messages/Admin" class="btn btn-outline-warning mr-2">
+                            📢 Message Center
+                        </a>
+
+                        <form asp-controller="AdminAuth" asp-action="Logout" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Alerts -->
+    <div class="row mt-4">
+        @if (ViewBag.Stats.NewDisasterReports > 0)
+        {
+            <div class="col-md-6">
+                <div class="alert alert-warning">
+                    <h6>🚨 New Disaster Reports</h6>
+                    <p>You have <strong>@ViewBag.Stats.NewDisasterReports new disaster reports</strong> that need attention.</p>
+                    <a href="@Url.Action("Reports", "Admin")" class="btn btn-warning btn-sm">Review Now</a>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.Stats.PendingApplications > 0)
+        {
+            <div class="col-md-6">
+                <div class="alert alert-info">
+                    <h6>📝 Pending Applications</h6>
+                    <p>You have <strong>@ViewBag.Stats.PendingApplications volunteer applications</strong> awaiting approval.</p>
+                    <a href="@Url.Action("Applications", "Admin")" class="btn btn-info btn-sm">Review Applications</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

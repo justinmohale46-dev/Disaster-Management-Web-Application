@@ -1,0 +1,32 @@
+﻿
+<link rel="stylesheet" href="~/css/styles.css" />
+<h2>Select an Assignment</h2>
+
+<p>You have volunteered on @ViewBag.VolunteerCount projects.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model)
+        {
+            <tr>
+                <td>@assignment.ProjectName</td>
+                <td>@assignment.Role</td>
+                <td>@assignment.Status</td>
+                <td>
+                    <form asp-action="Volunteer" method="post">
+                        <input type="hidden" name="assignmentId" value="@assignment.AssignmentID" />
+                        <button type="submit" class="btn btn-primary">Volunteer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

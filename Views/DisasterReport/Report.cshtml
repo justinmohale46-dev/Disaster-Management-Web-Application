@@ -1,0 +1,49 @@
+﻿@model GiftOfTheGivers.ViewModels.DisasterReportViewModel
+
+
+
+@{
+    ViewData["Title"] = "Report an Incident";
+
+}
+
+<link rel="stylesheet" href="~/css/styles.css" />
+
+<h2>Report an Incident</h2>
+
+<!-- Success message pop-up -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert-success" id="success-popup">
+        <p>@TempData["SuccessMessage"]</p>
+    </div>
+}
+
+<form asp-action="Report" method="post">
+    <!-- Change to Report -->
+    <div class="form-group">
+        <label asp-for="Location">Location</label>
+        <input asp-for="Location" class="form-control" placeholder="Enter the location" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Provide details of the incident"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Report</button>
+</form>
+
+<!-- Add some basic CSS for the pop-up -->
+<style>
+    .alert-success {
+        padding: 15px;
+        background-color: #4CAF50;
+        color: white;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>

@@ -1,0 +1,83 @@
+﻿@model List<Message>
+
+@{
+    ViewData["Title"] = "Message Center";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>📢 Message Center</h1>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <!-- Broadcast Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning">
+            <h5 class="mb-0">📢 Broadcast to All Volunteers</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Broadcast" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input name="subject" class="form-control" placeholder="Announcement subject" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="content" class="form-control" rows="4"
+                              placeholder="Type your announcement for all volunteers..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-lg">
+                    📢 Send Broadcast
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- All Messages -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">All Messages</h5>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No messages yet.</p>
+            }
+            else
+            {
+                foreach (var message in Model)
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6>
+                                    @if (message.MessageType == "AdminBroadcast")
+                                    {
+                                        <span class="badge badge-warning">📢 Broadcast</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-info">📨 From Volunteer</span>
+                                    }
+                                    @message.Subject
+                                </h6>
+                                <p class="mb-1">@message.Content</p>
+                                <small class="text-muted">
+                                    📅 @message.SentDate.ToString("MMM dd, yyyy 'at' HH:mm")
+                                    @if (message.FromUser != null)
+                                    {
+                                        <span> • 👤 From: @message.FromUser.FirstName</span>
+                                    }
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

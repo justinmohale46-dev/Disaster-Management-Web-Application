@@ -1,0 +1,85 @@
+/* General Body Styling */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes full height */
+}
+
+/* Header Styling */
+header {
+    background-color: rgba(244, 244, 244, 0.9); /* Blends into background */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link {
+    color: #00796b; /* Link color */
+    margin: 0 15px; /* Space between links */
+}
+
+    .nav-link:hover {
+        text-decoration: underline; /* Hover effect */
+        color: #FFD700;
+    }
+
+/* Dropdown Menu for Navbar */
+.navbar-collapse {
+    flex-grow: 0;
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        display: none; /* Hide the nav links on small screens */
+    }
+
+    .navbar-toggler {
+        display: block; /* Show the toggle button */
+    }
+
+        .navbar-toggler.collapsed + .navbar-collapse {
+            display: flex; /* Show nav links when toggled */
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(244, 244, 244, 0.95); /* Background for dropdown */
+            z-index: 1000;
+        }
+}
+
+/* Main Content Styling */
+.container {
+    flex: 1; /* Allows the main content to grow and take up available space */
+}
+
+/* Footer Styling */
+footer {
+    background-color: rgba(244, 244, 244, 0.9); /* Same as header to blend in */
+    padding: 10px 0;
+    text-align: center;
+    margin-top: 10pt; /* Space above footer */
+}
+
+.text-muted {
+    color: #6c757d; /* Slightly muted color for footer text */
+}
+
+
+a {
+    text-decoration: none; 
+}
+
+    a:hover {
+        text-decoration: underline; 
+    }

@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home - Gift of the Givers Foundation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/Home.css" />
+}
+
+<div class="home-container">
+    <!-- Hero Section with Background Image -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>WELCOME TO GIFT OF THE GIVERS FOUNDATION</h1>
+            <p>Your generosity makes a difference in the lives of those in need.</p>
+            <div class="hero-buttons">
+                <a class="hero-btn hero-btn-primary" asp-controller="Donations" asp-action="Donate">Donate Now</a>
+                <a class="hero-btn hero-btn-secondary" asp-controller="Volunteer" asp-action="Hub">Get Involved</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span style="font-size: 2rem;">↓</span>
+        </div>
+    </section>
+
+    <!-- Mission Statement Section -->
+    <section class="mission-statement text-center">
+        <h2>Our Mission</h2>
+        <p>
+            The Gift of the Givers Foundation is committed to providing humanitarian aid to those in distress.
+            Our goal is to deliver assistance to individuals affected by disasters, poverty, and health crises
+            through various projects and initiatives.
+        </p>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="featured-projects text-center">
+        <h2>How You Can Help</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>🚨 Report Disaster</h3>
+                <p>Immediately report emergencies and disaster situations to activate our rapid response teams and coordinate relief efforts.</p>
+            </div>
+            <div class="project-card">
+                <h3>💰 Make Donation</h3>
+                <p>Support our humanitarian missions with financial contributions or essential supplies to help those affected by crises.</p>
+            </div>
+            <div class="project-card">
+                <h3>🙋 Become Volunteer</h3>
+                <p>Join our network of dedicated volunteers to provide hands-on assistance in disaster zones and community outreach programs.</p>
+            </div>
+        </div>
+    </section>
+</div>

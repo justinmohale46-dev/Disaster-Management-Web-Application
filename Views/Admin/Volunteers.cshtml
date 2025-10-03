@@ -1,0 +1,49 @@
+﻿@model List<Volunteer>
+
+@{
+    ViewData["Title"] = "Manage Volunteers";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>👥 Manage Volunteers</h1>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No volunteers registered yet.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Skills</th>
+                                <th>Availability</th>
+                                <th>Status</th>
+                                <th>Registered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var volunteer in Model)
+                            {
+                                <tr>
+                                    <td>@volunteer.User.FirstName @volunteer.User.LastName</td>
+                                    <td>@volunteer.Skills</td>
+                                    <td>@volunteer.Availability</td>
+                                    <td><span class="badge badge-success">@volunteer.Status</span></td>
+                                    <td>@volunteer.RegistrationDate.ToString("MMM dd, yyyy")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

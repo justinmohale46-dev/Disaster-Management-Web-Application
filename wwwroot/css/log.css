@@ -1,0 +1,282 @@
+﻿/* log.css - Mission-Critical Login Styles */
+/* Only CSS - No HTML/Razor changes needed */
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ECF0F1 0%, #f8f9fa 100%);
+    padding: 3rem 1rem;
+    position: relative;
+}
+
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><defs><pattern id="cross" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 0v20M0 10h20" stroke="%232980B9" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23cross)"/></svg>');
+        pointer-events: none;
+    }
+
+    .login-container h2 {
+        color: #2C3E50;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+        .login-container h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #2980B9;
+            margin: 0.75rem auto 0;
+            border-radius: 2px;
+        }
+
+    .login-container form {
+        background: #FFFFFF;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        width: 100%;
+        max-width: 440px;
+        position: relative;
+        z-index: 2;
+    }
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2C3E50;
+        font-size: 0.875rem;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ECF0F1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    background: #FFFFFF;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #2980B9;
+        box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+        background: #FFFFFF;
+    }
+
+.input-validation-error {
+    border-color: #E74C3C !important;
+}
+
+    .input-validation-error:focus {
+        border-color: #E74C3C !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+    }
+
+.text-danger {
+    display: block;
+    color: #E74C3C;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+    .text-danger::before {
+        content: "⚠ ";
+        font-size: 0.75rem;
+    }
+
+.validation-summary-errors {
+    background: #FDEDEC;
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    border-left: 4px solid #E74C3C;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+    .validation-summary-errors ul {
+        margin: 0;
+        padding-left: 1rem;
+    }
+
+    .validation-summary-errors li {
+        margin-bottom: 0.25rem;
+        color: #E74C3C;
+        font-weight: 500;
+    }
+
+        .validation-summary-errors li:last-child {
+            margin-bottom: 0;
+        }
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: #2980B9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+    .btn-primary:hover:not(:disabled) {
+        background: #2471A3;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+        background: #566573;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+.btn-outline-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background: transparent;
+    color: #2980B9;
+    border: 2px solid #2980B9;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+    .btn-outline-primary:hover {
+        background: #2980B9;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+.form-group:last-of-type {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ECF0F1;
+}
+
+    .form-group:last-of-type a {
+        color: #2980B9;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+        .form-group:last-of-type a:hover {
+            text-decoration: underline;
+            color: #1B4F72;
+        }
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+    .login-container {
+        padding: 1rem 0.75rem;
+        justify-content: flex-start;
+        padding-top: 4rem;
+    }
+
+        .login-container form {
+            padding: 1.5rem;
+            margin: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+    .form-control,
+    .btn-primary,
+    .btn-outline-primary {
+        padding: 1rem;
+        min-height: 44px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .form-control {
+        border-width: 3px;
+    }
+
+    .login-container form {
+        border: 2px solid #2C3E50;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .login-container {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+
+        .login-container::before {
+            opacity: 0.05;
+        }
+
+        .login-container form {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+
+    .form-control {
+        background: #404040;
+        border-color: #555;
+        color: white;
+    }
+
+        .form-control:focus {
+            background: #404040;
+            border-color: #2980B9;
+        }
+
+    .login-container h2 {
+        color: white;
+    }
+
+    .form-group label {
+        color: #e0e0e0;
+    }
+}

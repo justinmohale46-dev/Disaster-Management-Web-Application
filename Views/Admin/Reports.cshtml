@@ -1,0 +1,73 @@
+﻿@model List<DisasterReport>
+
+@{
+    ViewData["Title"] = "Disaster Reports";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>🚨 Disaster Reports</h1>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No disaster reports found.</p>
+            }
+            else
+            {
+                foreach (var report in Model)
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>📍 @report.Location</h6>
+                                <p class="mb-1">@report.Description</p>
+                                <div class="small text-muted">
+                                    <span>📅 Reported: @report.ReportDate.ToString("MMM dd, yyyy HH:mm")</span> •
+                                    <span>👥 @report.PeopleAffected people affected</span> •
+                                    <span>⚠️ @report.SeverityLevel severity</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge badge-primary">@report.DisasterType</span>
+                                    <span class="badge badge-@GetStatusBadge(report.Status)">@report.Status</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <a href="/DisasterReport/Details/@report.ReportID" class="btn btn-info btn-sm">View Details</a>
+
+                                <!-- Simple Status Update Dropdown -->
+                                <form asp-controller="Admin" asp-action="UpdateReportStatus" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="reportId" value="@report.ReportID" />
+                                    <select name="newStatus" class="form-control-sm" onchange="this.form.submit()">
+                                        <option value="Reported" selected="@(report.Status == "Reported")">Reported</option>
+                                        <option value="Under Review" selected="@(report.Status == "Under Review")">Under Review</option>
+                                        <option value="Assistance Deployed" selected="@(report.Status == "Assistance Deployed")">Assistance Deployed</option>
+                                        <option value="Resolved" selected="@(report.Status == "Resolved")">Resolved</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Reported" => "warning",
+            "Under Review" => "info",
+            "Assistance Deployed" => "success",
+            "Resolved" => "secondary",
+            _ => "secondary"
+        };
+    }
+}

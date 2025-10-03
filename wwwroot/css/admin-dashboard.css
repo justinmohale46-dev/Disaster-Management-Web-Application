@@ -1,0 +1,357 @@
+﻿/* admin-dashboard.css - Mission-Critical Admin Styles */
+
+/* Dashboard Layout Improvements */
+.container-fluid {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header Section */
+.d-flex.justify-content-between.align-items-center.mb-4 {
+    margin-bottom: 2.5rem !important;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #ECF0F1;
+}
+
+    .d-flex.justify-content-between.align-items-center.mb-4 h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #2C3E50;
+        margin: 0;
+    }
+
+/* Admin Welcome Badge */
+.badge.badge-primary {
+    background: #2980B9;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.text-muted.ml-2 {
+    font-size: 1rem;
+    color: #566573 !important;
+    font-weight: 500;
+}
+
+/* Statistics Cards Grid */
+.row.mb-4 {
+    margin-bottom: 2.5rem !important;
+}
+
+.col-xl-2.col-md-4.col-sm-6.mb-3 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Card Sizing and Spacing */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    height: 100%;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+.card-body {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+    .card-body h3,
+    .card-body h4 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        line-height: 1;
+    }
+
+    .card-body p {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin: 0;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+/* Card Color Variants */
+.card.bg-primary {
+    background: linear-gradient(135deg, #2980B9 0%, #3498DB 100%) !important;
+}
+
+.card.bg-success {
+    background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%) !important;
+}
+
+.card.bg-warning {
+    background: linear-gradient(135deg, #F39C12 0%, #F1C40F 100%) !important;
+}
+
+.card.bg-info {
+    background: linear-gradient(135deg, #3498DB 0%, #5DADE2 100%) !important;
+}
+
+.card.bg-danger {
+    background: linear-gradient(135deg, #E74C3C 0%, #EC7063 100%) !important;
+}
+
+/* Admin Control Panel Card - Grey Style */
+.card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) {
+    border: 1px solid #E0E0E0;
+    background: #F8F9FA;
+}
+
+    .card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) .card-body {
+        padding: 2rem;
+    }
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2C3E50;
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #566573;
+    margin-bottom: 1.5rem;
+}
+
+/* Quick Actions Section */
+.mt-4 {
+    margin-top: 2rem !important;
+}
+
+    .mt-4 h6 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #2C3E50;
+        margin-bottom: 1rem;
+    }
+
+/* Quick Action Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 2px solid;
+    transition: all 0.2s ease;
+    margin-bottom: 0.75rem;
+    margin-right: 0.75rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+.btn-outline-primary {
+    color: #2980B9;
+    border-color: #2980B9;
+    background: transparent;
+}
+
+    .btn-outline-primary:hover {
+        background: #2980B9;
+        color: white;
+        border-color: #2980B9;
+    }
+
+.btn-outline-success {
+    color: #27AE60;
+    border-color: #27AE60;
+    background: transparent;
+}
+
+    .btn-outline-success:hover {
+        background: #27AE60;
+        color: white;
+        border-color: #27AE60;
+    }
+
+.btn-outline-info {
+    color: #3498DB;
+    border-color: #3498DB;
+    background: transparent;
+}
+
+    .btn-outline-info:hover {
+        background: #3498DB;
+        color: white;
+        border-color: #3498DB;
+    }
+
+.btn-outline-warning {
+    color: #F39C12;
+    border-color: #F39C12;
+    background: transparent;
+}
+
+    .btn-outline-warning:hover {
+        background: #F39C12;
+        color: white;
+        border-color: #F39C12;
+    }
+
+.btn-outline-secondary {
+    color: #566573;
+    border-color: #566573;
+    background: transparent;
+}
+
+    .btn-outline-secondary:hover {
+        background: #566573;
+        color: white;
+        border-color: #566573;
+    }
+
+.btn-outline-danger {
+    color: #E74C3C;
+    border-color: #E74C3C;
+    background: transparent;
+}
+
+    .btn-outline-danger:hover {
+        background: #E74C3C;
+        color: white;
+        border-color: #E74C3C;
+    }
+
+/* Logout Button Specific */
+form.d-inline .btn-outline-danger {
+    margin-left: 0.5rem;
+}
+
+/* Quick Alerts Section */
+.row.mt-4 {
+    margin-top: 2.5rem !important;
+}
+
+.alert {
+    border: none;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid;
+}
+
+.alert-warning {
+    background: #FEF9E7;
+    border-left-color: #F39C12;
+    color: #7D6608;
+}
+
+.alert-info {
+    background: #EBF5FB;
+    border-left-color: #3498DB;
+    color: #21618C;
+}
+
+.alert h6 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.alert .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+        .d-flex.justify-content-between.align-items-center.mb-4 h1 {
+            font-size: 1.75rem;
+        }
+
+    .card-body {
+        padding: 1.25rem 0.75rem;
+    }
+
+        .card-body h3,
+        .card-body h4 {
+            font-size: 1.75rem;
+        }
+
+    .card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) .card-body {
+        padding: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-right: 0;
+        justify-content: center;
+    }
+
+    form.d-inline .btn-outline-danger {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-xl-2.col-md-4.col-sm-6.mb-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .card-body h3,
+    .card-body h4 {
+        font-size: 1.5rem;
+    }
+}
+
+
+    }
+    /* Dark mode support for grey card */
+    @media (prefers-color-scheme: dark) {
+        .card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) {
+            background: #404040;
+            border-color: #555555;
+        }
+
+        .card-title {
+            color: #ffffff;
+        }
+
+        .card-text {
+            color: #b0b0b0;
+        }
+    }
+}

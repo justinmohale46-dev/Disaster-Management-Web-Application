@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GIFT OF THE GIVERS FOUNDATION</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Add Bootstrap CSS in your <head> section -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    @if (ViewData["HideHeader"] == null || !(bool)ViewData["HideHeader"])
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-header border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" style="font-size: 1.5rem; color: gold;">GIFT OF THE GIVERS FOUNDATION</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <!-- Removed Home and Privacy links -->
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <!-- ADMIN NAVIGATION -->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/Admin/Dashboard">Admin Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/Admin/Reports">Disaster Reports</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/Admin/Donations">Manage Donations</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/Admin/Volunteers">Volunteers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/Admin/Tasks">Manage Tasks</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form asp-controller="AdminAuth" asp-action="Logout" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="nav-link btn btn-link text-dark" style="border:none; background:none;">Logout</button>
+                                        </form>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <!-- USER NAVIGATION -->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Donations" asp-action="DonationHistory">My Donations</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Donations" asp-action="Donate">Donate</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="DisasterReport" asp-action="Index">Disaster Reports</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">My Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Volunteer" asp-action="Hub">Volunteer</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+                                    </li>
+                                }
+                            }
+                           
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    }
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @if (!ViewData.ContainsKey("HideFooter") || !ViewData["HideFooter"].Equals(true))
+    {
+        <footer class="border-top footer text-muted bg-footer">
+            <div class="container">
+                &copy; 2025 - GIFT OF THE GIVERS FOUNDATION - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    }
+
+    <!-- Add Bootstrap JS at the bottom before the closing </body> tag -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model GiftOfTheGivers.ViewModels.CreateAssignmentViewModel
+
+<link rel="stylesheet" href="~/css/styles.css" />
+
+<h2>Create New Assignment</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<form asp-action="CreateAssignment" method="post">
+    <div class="form-group">
+        <label for="ProjectName">Project Name</label>
+        <input asp-for="ProjectName" class="form-control" placeholder="Enter Project Name" />
+        <span asp-validation-for="ProjectName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="ProjectDescription">Project Description</label>
+        <textarea asp-for="ProjectDescription" class="form-control" placeholder="Enter Project Description"></textarea>
+        <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Role">Role</label>
+        <input asp-for="Role" class="form-control" placeholder="Enter Role" />
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Assignment</button>
+</form>

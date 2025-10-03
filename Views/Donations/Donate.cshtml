@@ -1,0 +1,90 @@
+﻿@model GiftOfTheGivers.ViewModels.DonationViewModel
+
+@{
+    ViewData["Title"] = "Make a Donation";
+}
+
+<div class="container mt-4">
+    <h2>Make a Physical Donation</h2>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="Donate" method="post" id="donationForm">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Donation Details</h4>
+
+                <div class="form-group">
+    <label asp-for="ResourceType">What would you like to donate? *</label>
+    <select asp-for="ResourceType" class="form-control" required>
+        <option value="">-- Select Resource Type --</option>
+        <option value="Food & Water">Food & Water</option>
+        <option value="Clothing & Blankets">Clothing & Blankets</option>
+        <option value="Medical Supplies">Medical Supplies</option>
+        <option value="Hygiene Products">Hygiene Products</option>
+        <option value="Baby Items">Baby Items</option>
+        <option value="School Supplies">School Supplies</option>
+        <option value="Building Materials">Building Materials</option>
+        <option value="Other Essentials">Other Essentials</option>
+    </select>
+    <span asp-validation-for="ResourceType" class="text-danger"></span>
+</div>
+
+                <div class="form-group">
+                    <label asp-for="Quantity">Quantity *</label>
+                    <input asp-for="Quantity" class="form-control" min="1" required />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                    <small class="form-text text-muted">Number of items, boxes, or units</small>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description">Item Description *</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" required
+                              placeholder="e.g., 'Canned food', 'Winter jackets size M-L', 'Medical first aid kits'"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Condition">Condition *</label>
+                    <select asp-for="Condition" class="form-control" required>
+                        <option value="">-- Select Condition --</option>
+                        @foreach (var condition in Model.Conditions)
+                        {
+                            <option value="@condition">@condition</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Condition" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Delivery Information</h4>
+
+                <div class="form-group">
+                    <label asp-for="DeliveryMethod">Delivery Method *</label>
+                    <select asp-for="DeliveryMethod" class="form-control" id="deliveryMethod" required>
+                        <option value="">-- Select Delivery Method --</option>
+                        @foreach (var method in Model.DeliveryMethods)
+                        {
+                            <option value="@method">@method</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DeliveryMethod" class="text-danger"></span>
+                </div>
+
+               
+                </div>
+        </div>
+    </form>
+        </div>
+        
+
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-success btn-lg">
+                Submit Donation
+            </button>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+        </div>
+    
+
+

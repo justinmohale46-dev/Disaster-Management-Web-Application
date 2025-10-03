@@ -1,0 +1,158 @@
+﻿@model GiftOfTheGivers.ViewModels.DisasterReportHistoryViewModel
+
+@{
+    ViewData["Title"] = "Disaster Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5>📊 Quick Stats</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Total Reports:</strong> @Model.TotalReports</p>
+                    <p><span class="badge badge-warning">Reported: @Model.ReportedCount</span></p>
+                    <p><span class="badge badge-info">Under Review: @Model.UnderReviewCount</span></p>
+                    <p><span class="badge badge-primary">Assistance Deployed: @Model.AssistanceDeployedCount</span></p>
+                    <p><span class="badge badge-success">Resolved: @Model.ResolvedCount</span></p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>🔍 Filters</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" class="form-control" onchange="this.form.submit()">
+                                @foreach (var status in Model.StatusOptions)
+                                {
+                                    <option value="@status" selected="@(Model.SelectedStatus == status)">@status</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Disaster Type</label>
+                            <select name="disasterType" class="form-control" onchange="this.form.submit()">
+                                @foreach (var type in Model.DisasterTypeOptions)
+                                {
+                                    <option value="@type" selected="@(Model.SelectedDisasterType == type)">@type</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>From Date</label>
+                            <input type="date" name="startDate" class="form-control" value="@Model.StartDate?.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>To Date</label>
+                            <input type="date" name="endDate" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-sm">Apply Filters</button>
+                        <a href="@Url.Action("Index")" class="btn btn-secondary btn-sm">Clear All</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Disaster Reports</h2>
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-danger">
+                        🚨 Report Disaster
+                    </a>
+                </div>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+
+            @if (!Model.Reports.Any())
+            {
+                <div class="alert alert-info">
+                    <h4>No disaster reports found</h4>
+                    <p>No disaster reports match your current filters, or no reports have been submitted yet.</p>
+                    <a href="@Url.Action("Create")" class="btn btn-danger">Report First Disaster</a>
+                </div>
+            }
+            else
+            {
+                foreach (var report in Model.Reports)
+                {
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Report #DR-@report.ReportID.ToString("D5")</h5>
+                            <span class="badge @GetSeverityBadgeClass(report.SeverityLevel)">@report.SeverityLevel</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Date Reported:</strong> @report.ReportDate.ToString("MMM dd, yyyy")</p>
+                                    <p><strong>Location:</strong> @report.Location</p>
+                                    <p><strong>Disaster Type:</strong> @report.DisasterType</p>
+                                    <p><strong>People Affected:</strong> @report.PeopleAffected</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Status:</strong> <span class="badge @GetStatusBadgeClass(report.Status)">@report.Status</span></p>
+                                    <p><strong>Incident Date:</strong> @report.IncidentDate?.ToString("MMM dd, yyyy")</p>
+                                    <p><strong>Description:</strong> @report.Description</p>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(report.ImageUrl))
+                            {
+                                <div class="mt-2">
+                                    <img src="@report.ImageUrl" class="img-fluid" style="max-height: 200px;" alt="Disaster Image" />
+                                </div>
+                            }
+
+                            <div class="mt-3">
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetSeverityBadgeClass(string severity)
+    {
+        return severity switch
+        {
+            "Low" => "badge-success",
+            "Medium" => "badge-info",
+            "High" => "badge-warning",
+            "Critical" => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Reported" => "badge-warning",
+            "Under Review" => "badge-info",
+            "Assistance Deployed" => "badge-primary",
+            "Resolved" => "badge-success",
+            _ => "badge-secondary"
+        };
+    }
+}

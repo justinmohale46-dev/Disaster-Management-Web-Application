@@ -1,0 +1,75 @@
+﻿@model List<Donation>
+
+@{
+    ViewData["Title"] = "Manage Donations";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>📦 Donation Management</h1>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No donations found.</p>
+            }
+            else
+            {
+                foreach (var donation in Model)
+                {
+                    <div class="border p-3 mb-3 rounded">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>📦 @donation.ResourceType</h6>
+                                <p class="mb-1">@donation.Description</p>
+                                <div class="small text-muted">
+                                    <span>👤 From: @donation.User.FirstName @donation.User.LastName</span> •
+                                    <span>📅 Donated: @donation.DonationDate.ToString("MMM dd, yyyy HH:mm")</span> •
+                                    <span>📊 Quantity: @donation.Quantity items</span> •
+                                    <span>📦 Condition: @donation.Condition</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge badge-primary">@donation.DeliveryMethod</span>
+                                    <span class="badge badge-@GetStatusBadge(donation.Status)">@donation.Status</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <!-- Status Update Dropdown -->
+                                <form asp-action="UpdateDonationStatus" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="donationId" value="@donation.DonationID" />
+                                    <select name="newStatus" class="form-control-sm" onchange="this.form.submit()">
+                                        <option value="Pending" selected="@(donation.Status == "Pending")">Pending</option>
+                                        <option value="Approved" selected="@(donation.Status == "Approved")">Approved</option>
+                                        <option value="Received" selected="@(donation.Status == "Received")">Received</option>
+                                        <option value="Distributed" selected="@(donation.Status == "Distributed")">Distributed</option>
+                                    </select>
+                                </form>
+                                <div class="mt-2 small text-muted">
+                                    📧 @donation.User.Email
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Pending" => "warning",
+            "Approved" => "info",
+            "Received" => "primary",
+            "Distributed" => "success",
+            _ => "secondary"
+        };
+    }
+}

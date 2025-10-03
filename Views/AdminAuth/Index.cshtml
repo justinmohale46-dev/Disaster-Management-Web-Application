@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GiftOfTheGivers.ViewModels.AdminViewModel>
+<link rel="stylesheet" href="~/css/styles.css" />
+<h2>Manage Volunteer Assignments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Creator</th>
+            <th>Project</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Date Assigned</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model)
+        {
+            <tr>
+                <td>@assignment.VolunteerName</td>
+                <td>@assignment.ProjectName</td>
+                <td>@assignment.Role</td>
+                <td>@assignment.Status</td>
+                <td>@assignment.AssignedDate.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <form asp-action="DeleteAssignment" method="post">
+                        <input type="hidden" name="assignmentId" value="@assignment.AssignmentID" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="@Url.Action("CreateAssignment")">Create New Assignment</a>
