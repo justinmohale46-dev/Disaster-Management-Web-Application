@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "My Donation History";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   
 }
 
 <div class="container mt-4">
@@ -58,8 +59,11 @@
                             <input type="date" name="endDate" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-sm">Apply Filters</button>
-                        <a href="@Url.Action("DonationHistory")" class="btn btn-secondary btn-sm">Clear All</a>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn btn-primary btn-sm">Apply Filters</button>
+                            <a href="@Url.Action("DonationHistory")" class="btn btn-secondary btn-sm">Clear All</a>
+                        </div>
+
                     </form>
                 </div>
             </div>

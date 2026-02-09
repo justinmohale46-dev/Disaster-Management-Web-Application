@@ -17,9 +17,7 @@ body .container .home-container {
     position: relative;
     height: 100vh;
     min-height: 600px;
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-        url('/images/givers.jpg') center center / cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/images/givers.jpg') center center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,11 +77,11 @@ body .container .home-container {
     box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
-.hero-btn-primary:hover {
-    background: #C0392B;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
-}
+    .hero-btn-primary:hover {
+        background: #C0392B;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
 
 .hero-btn-secondary {
     background: transparent;
@@ -92,12 +90,12 @@ body .container .home-container {
     backdrop-filter: blur(10px);
 }
 
-.hero-btn-secondary:hover {
-    background: white;
-    color: #2980B9;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-}
+    .hero-btn-secondary:hover {
+        background: white;
+        color: #2980B9;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+    }
 
 /* Scroll Down Indicator */
 .scroll-indicator {
@@ -110,18 +108,20 @@ body .container .home-container {
     font-size: 2rem;
 }
 
-.scroll-indicator span {
-    display: block;
-    font-size: 2rem;
-}
+    .scroll-indicator span {
+        display: block;
+        font-size: 2rem;
+    }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateX(-50%) translateY(0);
     }
+
     40% {
         transform: translateX(-50%) translateY(-10px);
     }
+
     60% {
         transform: translateX(-50%) translateY(-5px);
     }
@@ -139,32 +139,32 @@ body .container .home-container {
     padding: 5rem 2rem;
 }
 
-.mission-statement h2 {
-    font-size: 2.5rem;
-    color: #2C3E50;
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
+    .mission-statement h2 {
+        font-size: 2.5rem;
+        color: #2C3E50;
+        margin-bottom: 2rem;
+        font-weight: 700;
+    }
 
-.mission-statement p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #566573;
-    max-width: 800px;
-    margin: 0 auto;
-}
+    .mission-statement p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #566573;
+        max-width: 800px;
+        margin: 0 auto;
+    }
 
 .featured-projects {
     padding: 5rem 2rem;
     background: white;
 }
 
-.featured-projects h2 {
-    font-size: 2.5rem;
-    color: #2C3E50;
-    margin-bottom: 3rem;
-    font-weight: 700;
-}
+    .featured-projects h2 {
+        font-size: 2.5rem;
+        color: #2C3E50;
+        margin-bottom: 3rem;
+        font-weight: 700;
+    }
 
 .projects-grid {
     display: grid;
@@ -184,22 +184,22 @@ body .container .home-container {
     text-align: center;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
 
-.project-card h3 {
-    font-size: 1.5rem;
-    color: #2C3E50;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
+    .project-card h3 {
+        font-size: 1.5rem;
+        color: #2C3E50;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
 
-.project-card p {
-    color: #566573;
-    line-height: 1.6;
-}
+    .project-card p {
+        color: #566573;
+        line-height: 1.6;
+    }
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -209,37 +209,37 @@ body .container .home-container {
         width: calc(100% + 30px);
         left: -15px;
     }
-    
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-section p {
-        font-size: 1.2rem;
-    }
-    
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
     }
-    
+
     .hero-btn {
         width: 100%;
         max-width: 300px;
         padding: 1rem 2rem;
     }
-    
+
     .mission-statement,
     .featured-projects {
         padding: 3rem 1rem;
     }
-    
-    .mission-statement h2,
-    .featured-projects h2 {
-        font-size: 2rem;
-    }
-    
+
+        .mission-statement h2,
+        .featured-projects h2 {
+            font-size: 2rem;
+        }
+
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -250,19 +250,19 @@ body .container .home-container {
     .hero-section {
         min-height: 450px;
     }
-    
-    .hero-section h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-section p {
-        font-size: 1.1rem;
-    }
-    
+
+        .hero-section h1 {
+            font-size: 2rem;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+        }
+
     .content-section {
         padding: 3rem 1rem;
     }
-    
+
     .project-card {
         padding: 2rem 1.5rem;
     }

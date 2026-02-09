@@ -29,6 +29,6 @@ namespace GiftOfTheGivers.Models
         [DataType(DataType.DateTime)]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        public virtual ICollection<VolunteerAssignment> VolunteerAssignments { get; set; }
+       
     }
 }

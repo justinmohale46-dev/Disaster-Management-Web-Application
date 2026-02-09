@@ -337,21 +337,20 @@ form.d-inline .btn-outline-danger {
     }
 }
 
-
+}
+/* Dark mode support for grey card */
+@media (prefers-color-scheme: dark) {
+    .card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) {
+        background: #404040;
+        border-color: #555555;
     }
-    /* Dark mode support for grey card */
-    @media (prefers-color-scheme: dark) {
-        .card:not(.bg-primary):not(.bg-success):not(.bg-warning):not(.bg-info):not(.bg-danger) {
-            background: #404040;
-            border-color: #555555;
-        }
 
-        .card-title {
-            color: #ffffff;
-        }
-
-        .card-text {
-            color: #b0b0b0;
-        }
+    .card-title {
+        color: #ffffff;
     }
+
+    .card-text {
+        color: #b0b0b0;
+    }
+}
 }

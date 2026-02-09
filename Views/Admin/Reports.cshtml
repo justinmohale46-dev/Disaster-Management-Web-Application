@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Disaster Reports";
+   
 }
 
 <div class="container-fluid">
@@ -36,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 text-right">
-                                <a href="/DisasterReport/Details/@report.ReportID" class="btn btn-info btn-sm">View Details</a>
+                                
 
                                 <!-- Simple Status Update Dropdown -->
                                 <form asp-controller="Admin" asp-action="UpdateReportStatus" method="post" class="d-inline">

@@ -1,40 +1,85 @@
-name: GiftOfTheGivers-CI
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
 trigger:
-- develop
-- main
+  branches:
+    include:
+    - develop
+    - feature/*
+    - testing/*
+    - release/*
+  paths:
+    exclude:
+    - README.md
+    - documentation/*
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  buildConfiguration: 'Release'
+  solution: '**/*.sln'
+  projects: '**/*.csproj'
 
-steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET 6'
-  inputs:
-    packageType: 'sdk'
-    version: '6.x'
+stages:
+- stage: Build
+  displayName: 'Build and Test'
+  jobs:
+  - job: Build
+    displayName: 'Build ASP.NET Core Application'
+    pool:
+      vmImage: 'ubuntu-latest'  # Changed to Ubuntu for free parallelism
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET 6.x'
+      inputs:
+        packageType: 'sdk'
+        version: '6.x'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet packages'
+      inputs:
+        command: 'restore'
+        projects: '$(projects)'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Solution'
+      inputs:
+        command: 'build'
+        projects: '$(projects)'
+        arguments: '--configuration $(buildConfiguration) --no-restore'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Web Application'
+      inputs:
+        command: 'publish'
+        projects: '$(projects)'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --no-build'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'webapp'
+        publishLocation: 'Container'
 
-- script: |
-    echo "🔨 Building Gift of the Givers Foundation..."
-    dotnet build --configuration Release
-  displayName: 'Build Application'
-
-- script: |
-    echo "📦 Publishing application..."
-    dotnet publish --configuration Release --output $(Build.ArtifactStagingDirectory)
-  displayName: 'Publish Application'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Build Artifacts'
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'GiftOfTheGiversApp'
-
-- script: |
-    echo "🎉 PIPELINE SUCCESS! 🎉"
-    echo "✅ Gift of the Givers Foundation"
-    echo "✅ ASP.NET Core MVC Application"
-    echo "✅ Built and Published Successfully"
-    echo "✅ All artifacts ready for deployment"
-    echo "✅ CI/CD Pipeline Working Perfectly"
-  displayName: 'Pipeline Success'
+- stage: Validate
+  displayName: 'Build Validation'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: Validate
+    displayName: 'Build Success Validation'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        echo "🎉 BUILD SUCCESSFUL! 🎉"
+        echo "Gift of the Givers Foundation application built successfully!"
+        echo "All tests passed!"
+        echo "Artifacts published and ready for deployment"
+      displayName: 'Build Success'
